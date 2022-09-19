@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCart } from "../../hooks/useCart";
 import {
   Container,
   Info,
@@ -18,6 +19,13 @@ interface ContainerIndividualCoffe {
   title: string;
   price: string;
 }
+type TypeCoffeInformations = {
+  img: string;
+  price: string;
+  title: string;
+  id: string;
+  amount: number;
+};
 
 export function ContainerIndividualCoffe({
   img,
@@ -28,14 +36,32 @@ export function ContainerIndividualCoffe({
   types,
 }: ContainerIndividualCoffe) {
   const [amount, setAmount] = useState(0);
+  const { cartItem }: any = useCart();
+  const { onAddToCart }: any = useCart();
+  const [information, setInformation] = useState({
+    img,
+    informations,
+    price,
+    title,
+    id,
+    types,
+  });
 
   function minusAmount(id: string) {
-    if(amount <= 0) return
+    if (amount <= 0) return;
     setAmount(amount - 1);
   }
 
   function addAmount(id: string) {
     setAmount(amount + 1);
+  }
+
+  function addCart(coffeInformations: TypeCoffeInformations) {
+    const newInformation = {
+      ...information,
+      amount,
+    };
+    onAddToCart(newInformation);
   }
 
   return (
@@ -66,7 +92,7 @@ export function ContainerIndividualCoffe({
             {amount}
             <button onClick={() => addAmount(id)}>+</button>
           </SpanButton>
-          <SpanCart>
+          <SpanCart onClick={() => addCart(cartItem)}>
             <img src="/cartFillWhite.png" />
           </SpanCart>
         </QuantityCart>

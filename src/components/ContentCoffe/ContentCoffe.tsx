@@ -1,16 +1,8 @@
-import { useState } from "react";
 import { ContainerIndividualCoffe } from "../ContainerIndividualCoffe/ContainerIndividualCoffe";
 import { Container, Content } from "./styles";
 import { v4 as uuidv4 } from "uuid";
 
 export function ContentCoffe() {
-  const [amount, setAmount] = useState(0);
-  console.log(amount)
-
-  function addAmount(id: string) {
-    setAmount(amount + 1);
-  }
-
   return (
     <Container>
       <span>

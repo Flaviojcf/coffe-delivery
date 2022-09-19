@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   AdressDelivery,
   Cep,
@@ -24,9 +28,59 @@ import {
   TypesPayment,
 } from "./styles";
 
+interface DadosProps {
+  cep: string;
+  rua?: string;
+  número?: string;
+  complemento?: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
+}
+
 export function Cart() {
+  const [cep, setCep] = useState("");
+  const [teste, setTeste] = useState(true);
+  const [dados, setDados] = useState<DadosProps>({
+    cep: "",
+    complemento: "",
+    bairro: "",
+    cidade: "",
+    uf: "",
+  });
+
+  async function teste3() {
+    try {
+      const response = await api.get(`${cep}/json/`);
+      setTimeout(
+        () =>
+          setDados({
+            cep,
+            complemento: response.data.complemento,
+            bairro: response.data.bairro,
+            cidade: response.data.localidade,
+            uf: response.data.uf,
+          }),
+        200
+      );
+    } catch (error) {
+      toast.error("Digite um CEP Válido");
+    }
+  }
+
   return (
     <Container>
+      <ToastContainer
+        position="top-center"
+        autoClose={7000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+      />
       <ContainerAdress>
         <ContentAdress>
           <AdressDelivery>
@@ -40,7 +94,13 @@ export function Cart() {
           </AdressDelivery>
           <form>
             <Cep>
-              <input type="text" placeholder="CEP" />
+              <input
+                type="text"
+                placeholder="CEP"
+                value={cep}
+                onBlur={teste3}
+                onChange={(e) => setCep(e.target.value)}
+              />
             </Cep>
             <Street>
               <input type="text" placeholder="Rua" />
@@ -48,12 +108,24 @@ export function Cart() {
             <ContentInformation>
               <Complement>
                 <input type="text" placeholder="Número" />
-                <input type="text" placeholder="Complemento" />
+                <input
+                  type="text"
+                  placeholder="Complemento"
+                  defaultValue={dados.complemento}
+                />
               </Complement>
               <ComplementAdress>
-                <input type="text" placeholder="Bairro" />
-                <input type="text" placeholder="Cidade" />
-                <input type="text" placeholder="UF" />
+                <input
+                  type="text"
+                  placeholder="Bairro"
+                  defaultValue={dados.bairro}
+                />
+                <input
+                  type="text"
+                  placeholder="Cidade"
+                  defaultValue={dados.cidade}
+                />
+                <input type="text" placeholder="UF" defaultValue={dados.uf} />
               </ComplementAdress>
             </ContentInformation>
           </form>
@@ -85,7 +157,7 @@ export function Cart() {
           </TypesPayment>
         </ContentPayment>
       </ContainerAdress>
-      
+
       <ContainerDiv>
         <ContainerCoffeSelected>
           <ContainerTypeCoffe>
@@ -134,8 +206,12 @@ export function Cart() {
               <p>R$ 3,50</p>
             </ItemsInformation>
             <ItemsInformation>
-              <p><strong>Total</strong></p>
-              <p><strong>R$ 33,20</strong></p>
+              <p>
+                <strong>Total</strong>
+              </p>
+              <p>
+                <strong>R$ 33,20</strong>
+              </p>
             </ItemsInformation>
           </TotalItems>
           <OrderConfirm>confirmar pedido</OrderConfirm>
