@@ -1,11 +1,13 @@
+import { Link } from "react-router-dom";
 import { AdressContainer, HeaderContainer } from "./styles";
-
 
 export function Header() {
   return (
     <HeaderContainer>
       <span>
-        <img src="/LogoCoffee.png" />
+        <Link to="/">
+          <img src="/LogoCoffee.png" /> /
+        </Link>
       </span>
       <AdressContainer>
         <div>
@@ -13,7 +15,9 @@ export function Header() {
           Porto Alegre, RS
         </div>
         <span>
-          <img src="/shoppingCart.png"/>
+          <Link to="/cart">
+            <img src="/shoppingCart.png" />
+          </Link>
         </span>
       </AdressContainer>
     </HeaderContainer>
