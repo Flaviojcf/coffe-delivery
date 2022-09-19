@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   height: 6.5rem;
   width: 1120px;
- 
+
+  
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,17 +19,22 @@ export const AdressContainer = styled.div`
 
   div {
     background: ${(props) => props.theme.colors["brand-purple-light"]};
-    color: ${(props) => props.theme.colors["brand-purple"]};
+    color: ${(props) => props.theme.colors["brand-purple-dark"]};
     border-radius: 8px;
 
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
 
-    width: 143px;
+    width: 146px;
     height: 38px;
     gap: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
   }
 
   span {

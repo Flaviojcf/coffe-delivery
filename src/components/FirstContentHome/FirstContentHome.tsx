@@ -1,6 +1,8 @@
 import {
   Container,
   Content,
+  DivIcon,
+  DivImagem,
   ExtraContent,
   ExtraContentOne,
   Info,
@@ -22,42 +24,42 @@ export function FirstContentHome() {
         </Content>
         <ExtraContent>
           <ExtraContentOne>
-            <div>
+            <DivIcon>
               <span>
                 {" "}
-                <ShoppingCart size={22} />
+                <img src="/iconCart.png" />
               </span>
               <h3>Compra simples e segura</h3>
-            </div>
-            <div>
+            </DivIcon>
+            <DivIcon>
               <span>
                 {" "}
-                <ShoppingCart size={22} />
+                <img src="/iconEmbalagem.png" />
               </span>
               <h3>Embalagem mantém o café intacto</h3>
-            </div>
+            </DivIcon>
           </ExtraContentOne>
           <ExtraContentOne>
-            <div>
+            <DivIcon>
               <span>
                 {" "}
-                <ShoppingCart size={22} />
+                <img src="/iconTime.png" />
               </span>
               <h3>Entrega rápida e rastreada</h3>
-            </div>
-            <div>
+            </DivIcon>
+            <DivIcon>
               <span>
                 {" "}
-                <ShoppingCart size={22} />
+                <img src="/iconCoffe.png" />
               </span>
               <h3>O café chega fresquinho até você</h3>
-            </div>
+            </DivIcon>
           </ExtraContentOne>
         </ExtraContent>
       </Info>
-      <div>
+      <DivImagem>
         <img src="/Imagem.png" />
-      </div>
+      </DivImagem>
     </Container>
   );
 }

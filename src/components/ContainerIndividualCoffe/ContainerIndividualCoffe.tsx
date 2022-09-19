@@ -1,29 +1,75 @@
-import { Container, Info, Price } from "./styles";
-import { ShoppingCart } from "phosphor-react";
+import { useState } from "react";
+import {
+  Container,
+  Info,
+  Price,
+  PriceUnit,
+  QuantityCart,
+  SpanButton,
+  SpanCart,
+  SpanTypes,
+} from "./styles";
 
-export function ContainerIndividualCoffe() {
+interface ContainerIndividualCoffe {
+  id: string;
+  img: string;
+  types: string[];
+  informations: string;
+  title: string;
+  price: string;
+}
+
+export function ContainerIndividualCoffe({
+  img,
+  informations,
+  price,
+  title,
+  id,
+  types,
+}: ContainerIndividualCoffe) {
+  const [amount, setAmount] = useState(0);
+
+  function minusAmount(id: string) {
+    if(amount <= 0) return
+    setAmount(amount - 1);
+  }
+
+  function addAmount(id: string) {
+    setAmount(amount + 1);
+  }
+
   return (
     <Container>
       <header>
-        <img src="/Coffee.png" />
-        <span>Tradicional</span>
+        <img src={img} />
+        <SpanTypes>
+          {types.map((type) => (
+            <p key={type[0]}>{type.toUpperCase()}</p>
+          ))}
+        </SpanTypes>
       </header>
 
       <Info>
-        <h1>Expresso Tradicional</h1>
-        <h2>
-          O tradicional café feito com água <br /> quente e grãos moídos
-        </h2>
+        <h1>{title}</h1>
+        <h2>{informations}</h2>
       </Info>
 
       <Price>
-        <span> R$ 9,90 </span>
-        <div>
-          <span>
-            <button>-</button> 1 <button>+</button>
-          </span>
-          <span>{<ShoppingCart size={22} />}</span>
-        </div>
+        <PriceUnit>
+          {" "}
+          <span>R$</span>
+          <span>{price}</span>
+        </PriceUnit>
+        <QuantityCart>
+          <SpanButton>
+            <button onClick={() => minusAmount(id)}>-</button>
+            {amount}
+            <button onClick={() => addAmount(id)}>+</button>
+          </SpanButton>
+          <SpanCart>
+            <img src="/cartFillWhite.png" />
+          </SpanCart>
+        </QuantityCart>
       </Price>
     </Container>
   );

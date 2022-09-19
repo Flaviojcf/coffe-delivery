@@ -1,5 +1,5 @@
 import { AdressContainer, HeaderContainer } from "./styles";
-import { ShoppingCart, MapPin } from "phosphor-react";
+
 
 export function Header() {
   return (
@@ -9,10 +9,11 @@ export function Header() {
       </span>
       <AdressContainer>
         <div>
-        <MapPin size={22} />
-          Porto Alegre, RS</div>
+          <img src="/gps.png" />
+          Porto Alegre, RS
+        </div>
         <span>
-          <ShoppingCart size={22} />
+          <img src="/shoppingCart.png"/>
         </span>
       </AdressContainer>
     </HeaderContainer>

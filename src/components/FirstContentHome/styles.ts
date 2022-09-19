@@ -2,12 +2,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   height: 644px;
   width: 1120px;
- 
-  padding: 10px 160px;
-
 `;
 
 export const Info = styled.div`
@@ -41,30 +38,31 @@ export const Content = styled.div`
 export const ExtraContent = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 20px;
 `;
 
 export const ExtraContentOne = styled.div`
   display: flex;
+
   gap: 40px;
+`;
 
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+export const DivIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 270px;
 
+  h3 {
     font-family: "Roboto";
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 130%;
     color: ${(props) => props.theme.colors["base-text"]};
-    &:first-child {
-      width: 231px;
-    }
-    &:last-child {
-      width: 310px;
-    }
   }
 `;
 
+export const DivImagem = styled.div`
+  margin: auto;
+`;
