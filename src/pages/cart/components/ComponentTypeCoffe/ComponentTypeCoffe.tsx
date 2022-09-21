@@ -10,6 +10,11 @@ import {
 
 export function ComponentTypeCoffe() {
   const { cartItems }: any = useCart();
+  const {addAmountInCart}:any = useCart()
+
+  function handleAddAmount(id:any){
+    addAmountInCart(id)
+  }
 
   return (
     <>
@@ -20,7 +25,9 @@ export function ComponentTypeCoffe() {
             <p>{cart.title}</p>
             <ContainerButton>
               <SpanButton>
-                <button>-</button>0<button>+</button>
+                <button>-</button>
+                {cart.amount}
+                <button onClick={()=>handleAddAmount(cart.id)}>+</button>
               </SpanButton>
               <ContainerRemove>
                 <img src="/trash.png" />
@@ -29,7 +36,7 @@ export function ComponentTypeCoffe() {
             </ContainerButton>
           </ContainerTypeCoffeInformation>
           <ContainerPrice>
-            <p>{cart.price}</p>
+            <p>R${cart.price * cart.amount}</p>
           </ContainerPrice>
         </ContainerTypeCoffe>
       ))}

@@ -18,6 +18,7 @@ interface ContainerIndividualCoffe {
   informations: string;
   title: string;
   price: string;
+ 
 }
 
 export function ContainerIndividualCoffe({
@@ -27,8 +28,8 @@ export function ContainerIndividualCoffe({
   title,
   id,
   types,
-}: ContainerIndividualCoffe) {
 
+}: ContainerIndividualCoffe) {
 
   const CoffeInformations: ContainerIndividualCoffe = {
     img,
@@ -37,25 +38,30 @@ export function ContainerIndividualCoffe({
     title,
     id,
     types,
+   
+ 
   };
-  const [amount, setAmount] = useState(0);
+ const [amount, setAmount] = useState(1);
   const { onAddToCart }: any = useCart();
 
+
   function minusAmount() {
+    if(amount <= 0) return
     setAmount((state) => state - 1);
   }
 
   function addAmount() {
     setAmount((state) => state + 1);
   }
+  
 
   function handleAddToCart() {
     const coffeToAdd = {
       ...CoffeInformations,
-      amount: 1
+      amount: amount,
     };
     onAddToCart(coffeToAdd);
-    console.log(coffeToAdd)
+
   }
 
   return (
@@ -82,7 +88,9 @@ export function ContainerIndividualCoffe({
         </PriceUnit>
         <QuantityCart>
           <SpanButton>
-            <button onClick={minusAmount}>-</button>
+            <button onClick={minusAmount}>
+              -
+            </button>
             {amount}
             <button onClick={addAmount}>+</button>
           </SpanButton>

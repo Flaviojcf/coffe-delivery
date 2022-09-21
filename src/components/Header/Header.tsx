@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../../hooks/useCart";
 import { AdressContainer, HeaderContainer } from "./styles";
 
 export function Header() {
+  const {cartLength}:any = useCart()
   return (
     <HeaderContainer>
+      
       <span>
         <Link to="/">
           <img src="/LogoCoffee.png" /> /
@@ -16,6 +19,7 @@ export function Header() {
         </div>
         <span>
           <Link to="/cart">
+            <span>{cartLength}</span>
             <img src="/shoppingCart.png" />
           </Link>
         </span>

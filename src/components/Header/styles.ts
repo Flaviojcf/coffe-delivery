@@ -21,7 +21,7 @@ export const AdressContainer = styled.div`
     background: ${(props) => props.theme.colors["brand-purple-light"]};
     color: ${(props) => props.theme.colors["brand-purple-dark"]};
     border-radius: 8px;
-
+   
     font-family: "Roboto";
     font-style: normal;
     font-weight: 600;
@@ -37,10 +37,27 @@ export const AdressContainer = styled.div`
     gap: 12px;
   }
 
-  span {
+  & span:first-child {
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    color: ${(props)=>props.theme.colors["base-white"]};
+    top: calc(-1.25rem/2);
+    right: calc(-1.25rem/2);
+    background: ${(props)=>props.theme.colors["brand-yellow-dark"]};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+
+  & span:last-child {
     color: ${(props) => props.theme.colors["brand-yellow-dark"]};
     background: ${(props) => props.theme.colors["brand-yellow-light"]};
-
+    position: relative;
     border-radius: 9px;
 
     width: 38px;
