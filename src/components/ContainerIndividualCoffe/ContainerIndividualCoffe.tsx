@@ -19,13 +19,6 @@ interface ContainerIndividualCoffe {
   title: string;
   price: string;
 }
-type TypeCoffeInformations = {
-  img: string;
-  price: string;
-  title: string;
-  id: string;
-  amount: number;
-};
 
 export function ContainerIndividualCoffe({
   img,
@@ -35,33 +28,34 @@ export function ContainerIndividualCoffe({
   id,
   types,
 }: ContainerIndividualCoffe) {
-  const [amount, setAmount] = useState(0);
-  const { cartItem }: any = useCart();
-  const { onAddToCart }: any = useCart();
-  const [information, setInformation] = useState({
+
+
+  const CoffeInformations: ContainerIndividualCoffe = {
     img,
     informations,
     price,
     title,
     id,
     types,
-  });
+  };
+  const [amount, setAmount] = useState(0);
+  const { onAddToCart }: any = useCart();
 
-  function minusAmount(id: string) {
-    if (amount <= 0) return;
-    setAmount(amount - 1);
+  function minusAmount() {
+    setAmount((state) => state - 1);
   }
 
-  function addAmount(id: string) {
-    setAmount(amount + 1);
+  function addAmount() {
+    setAmount((state) => state + 1);
   }
 
-  function addCart(coffeInformations: TypeCoffeInformations) {
-    const newInformation = {
-      ...information,
-      amount,
+  function handleAddToCart() {
+    const coffeToAdd = {
+      ...CoffeInformations,
+      amount: 1
     };
-    onAddToCart(newInformation);
+    onAddToCart(coffeToAdd);
+    console.log(coffeToAdd)
   }
 
   return (
@@ -88,11 +82,11 @@ export function ContainerIndividualCoffe({
         </PriceUnit>
         <QuantityCart>
           <SpanButton>
-            <button onClick={() => minusAmount(id)}>-</button>
+            <button onClick={minusAmount}>-</button>
             {amount}
-            <button onClick={() => addAmount(id)}>+</button>
+            <button onClick={addAmount}>+</button>
           </SpanButton>
-          <SpanCart onClick={() => addCart(cartItem)}>
+          <SpanCart onClick={handleAddToCart}>
             <img src="/cartFillWhite.png" />
           </SpanCart>
         </QuantityCart>

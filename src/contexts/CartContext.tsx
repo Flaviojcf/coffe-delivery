@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
+import { produce } from "immer";
 
 type TypeCartContextProvider = {
   children: ReactNode;
@@ -15,39 +16,25 @@ type TypeCoffeInformations = {
 export const CartContext = createContext({});
 
 export function CartContextProvider({ children }: TypeCartContextProvider) {
-  const [information, setInformation] = useState<TypeCoffeInformations>({
-    amount: 0,
-    id: "",
-    img: "",
-    price: "",
-    title: "",
-  });
-  console.log(information);
   const [amount, setAmount] = useState(0);
+  const [cartItems, setCartItems] = useState<TypeCoffeInformations[]>([]);
 
-  function minusAmount({ amount, id }: any) {
-    if (amount <= 0) return;
-    setAmount(amount - 1);
-  }
-
-  function addAmount({ amount, id }: any) {
-    setAmount(amount + 1);
-  }
-
-  function onAddToCart(coffeInformations: TypeCoffeInformations) {
-    setInformation({
-      img: coffeInformations.img,
-      price: coffeInformations.price,
-      title: coffeInformations.title,
-      id: coffeInformations.id,
-      amount: coffeInformations.amount,
+  function onAddToCart(coffe: TypeCoffeInformations) {
+    const CoffeAlreadyExists = cartItems.findIndex(
+      (carItem) => carItem.id === coffe.id
+    );
+    const newCart = produce(cartItems, (draft) => {
+      if (CoffeAlreadyExists < 0) {
+        draft.push(coffe);
+      } else {
+        draft[CoffeAlreadyExists].amount += coffe.amount;
+      }
     });
+    setCartItems(newCart);
   }
 
   return (
-    <CartContext.Provider
-      value={{ information, onAddToCart, minusAmount, addAmount, amount }}
-    >
+    <CartContext.Provider value={{ onAddToCart, amount, cartItems }}>
       {children}
     </CartContext.Provider>
   );

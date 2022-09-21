@@ -18,17 +18,21 @@ export function Success() {
           <div>
             <img src="/gpsBackgroundBlue.png" />
             <p>
-              Entrega em <strong>Rua João Daniel Martinelli, 102</strong> Farrapos - Porto
-              Alegre, RS
+              Entrega em <strong>Rua João Daniel Martinelli, 102</strong>{" "}
+              Farrapos - Porto Alegre, RS
             </p>
           </div>
           <div>
             <img src="/timerBackgroundYellow.png" />
-            <p>Previsão de entrega <strong>20 min - 30 min</strong></p>
+            <p>
+              Previsão de entrega <strong>20 min - 30 min</strong>
+            </p>
           </div>
           <div>
             <img src="/dolarBackgroundOrange.png" />
-            <p>Pagamento na entrega <strong>Cartão de Crédito</strong></p>
+            <p>
+              Pagamento na entrega <strong>Cartão de Crédito</strong>
+            </p>
           </div>
         </ContainerText>
         <ContainerImage>
