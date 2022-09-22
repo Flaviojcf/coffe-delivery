@@ -9,11 +9,23 @@ import {
 } from "./styles";
 
 export function ComponentTypeCoffe() {
-  const { cartItems }: any = useCart();
-  const {addAmountInCart}:any = useCart()
+  const {
+    addAmountInCart,
+    minusAmountInCart,
+    cartItems,
+    removeCoffeInCart,
+  }: any = useCart();
 
-  function handleAddAmount(id:any){
-    addAmountInCart(id)
+  function handleAddAmount(id: string) {
+    addAmountInCart(id);
+  }
+
+  function handleMinusAmount(id: string) {
+    minusAmountInCart(id);
+  }
+
+  function onRemove(id: string) {
+    removeCoffeInCart(id);
   }
 
   return (
@@ -25,18 +37,23 @@ export function ComponentTypeCoffe() {
             <p>{cart.title}</p>
             <ContainerButton>
               <SpanButton>
-                <button>-</button>
+                <button onClick={() => handleMinusAmount(cart.id)}>-</button>
                 {cart.amount}
-                <button onClick={()=>handleAddAmount(cart.id)}>+</button>
+                <button onClick={() => handleAddAmount(cart.id)}>+</button>
               </SpanButton>
-              <ContainerRemove>
+              <ContainerRemove onClick={() => onRemove(cart.id)}>
                 <img src="/trash.png" />
                 <p>Remover</p>
               </ContainerRemove>
             </ContainerButton>
           </ContainerTypeCoffeInformation>
           <ContainerPrice>
-            <p>R${cart.price * cart.amount}</p>
+            <p>
+              {new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              }).format(cart.price * cart.amount)}
+            </p>
           </ContainerPrice>
         </ContainerTypeCoffe>
       ))}

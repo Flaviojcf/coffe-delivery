@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { useCart } from "../../hooks/useCart";
 import { ComponentTypeCoffe } from "./components/ComponentTypeCoffe/ComponentTypeCoffe";
 import { ComponentAdress } from "./components/ContainerAdress/ComponentAdress";
 import {
@@ -10,6 +12,10 @@ import {
 } from "./styles";
 
 export function Cart() {
+  const { sumTotalAmountValue }: any = useCart();
+  const totalAmountValue = sumTotalAmountValue();
+  const delivery = 3.5;
+
   return (
     <Container>
       <ComponentAdress />
@@ -19,22 +25,46 @@ export function Cart() {
           <TotalItems>
             <ItemsInformation>
               <p>Total de itens</p>
-              <p>R$ 29,70</p>
+              <p>
+                {!totalAmountValue
+                  ? 0
+                  : new Intl.NumberFormat("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    }).format(totalAmountValue)}
+              </p>
             </ItemsInformation>
             <ItemsInformation>
               <p>Entrega</p>
-              <p>R$ 3,50</p>
+              <p>
+                {new Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(delivery)}
+              </p>
             </ItemsInformation>
             <ItemsInformation>
               <p>
                 <strong>Total</strong>
               </p>
               <p>
-                <strong>R$ 33,20</strong>
+                <strong>
+                  {!totalAmountValue
+                    ? new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      }).format(delivery)
+                    : new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      }).format(totalAmountValue + delivery)}
+                </strong>
               </p>
             </ItemsInformation>
           </TotalItems>
-          <OrderConfirm>confirmar pedido</OrderConfirm>
+          <OrderConfirm>
+            <Link to="/success">confirmar pedido</Link>
+          </OrderConfirm>
         </ContainerCoffeSelected>
       </ContainerDiv>
     </Container>

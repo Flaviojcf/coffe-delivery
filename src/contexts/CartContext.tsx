@@ -17,10 +17,21 @@ type TypeCoffeInformations = {
 export const CartContext = createContext({});
 
 export function CartContextProvider({ children }: TypeCartContextProvider) {
-  const [amount, setAmount] = useState(0);
-
   const [cartItems, setCartItems] = useState<TypeCoffeInformations[]>([]);
   const cartLength = cartItems.length;
+
+  const totalAmount = cartItems.map((item) => {
+    return item.amount * 9.9;
+  });
+
+  function sumTotalAmountValue() {
+    if (totalAmount.length > 0) {
+      const totalAmountValue = totalAmount.reduce(
+        (previousValue, currentValue) => previousValue + currentValue
+      );
+      return totalAmountValue;
+    }
+  }
 
   function onAddToCart(coffe: TypeCoffeInformations) {
     const CoffeAlreadyExists = cartItems.findIndex(
@@ -38,13 +49,42 @@ export function CartContextProvider({ children }: TypeCartContextProvider) {
   }
 
   function addAmountInCart(id: string) {
-    
+    const CoffeAlreadyExists = cartItems.findIndex(
+      (carItem) => carItem.id === id
+    );
+    const addAmount = produce(cartItems, (draft) => {
+      draft[CoffeAlreadyExists].amount += 1;
+    });
+    setCartItems(addAmount);
   }
-  
+
+  function minusAmountInCart(id: string) {
+    const CoffeAlreadyExists = cartItems.findIndex(
+      (carItem) => carItem.id === id
+    );
+    const minusAmount = produce(cartItems, (draft) => {
+      if (draft[CoffeAlreadyExists].amount <= 1) return;
+      draft[CoffeAlreadyExists].amount -= 1;
+    });
+    setCartItems(minusAmount);
+  }
+
+  function removeCoffeInCart(id: string) {
+    const filterRemoveCoffe: any = cartItems.filter((cart) => cart.id !== id);
+    setCartItems(filterRemoveCoffe);
+  }
 
   return (
     <CartContext.Provider
-      value={{ onAddToCart, amount, cartItems, cartLength, addAmountInCart }}
+      value={{
+        onAddToCart,
+        cartItems,
+        cartLength,
+        addAmountInCart,
+        sumTotalAmountValue,
+        minusAmountInCart,
+        removeCoffeInCart,
+      }}
     >
       {children}
     </CartContext.Provider>
