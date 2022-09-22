@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { produce } from "immer";
 import { allCoffesInformations } from "../db/db";
 
@@ -17,7 +17,16 @@ type TypeCoffeInformations = {
 export const CartContext = createContext({});
 
 export function CartContextProvider({ children }: TypeCartContextProvider) {
-  const [cartItems, setCartItems] = useState<TypeCoffeInformations[]>([]);
+  const [cartItems, setCartItems] = useState<TypeCoffeInformations[]>(() => {
+    const storedCartItems = localStorage.getItem(
+      "@cartItems-project:state-1.0.0"
+    );
+
+    if (storedCartItems) {
+      return JSON.parse(storedCartItems);
+    }
+    return [];
+  });
   const cartLength = cartItems.length;
 
   const totalAmount = cartItems.map((item) => {
@@ -73,6 +82,13 @@ export function CartContextProvider({ children }: TypeCartContextProvider) {
     const filterRemoveCoffe: any = cartItems.filter((cart) => cart.id !== id);
     setCartItems(filterRemoveCoffe);
   }
+
+  useEffect(() => {
+    localStorage.setItem(
+      "@cartItems-project:state-1.0.0",
+      JSON.stringify(cartItems)
+    );
+  }, [cartItems]);
 
   return (
     <CartContext.Provider

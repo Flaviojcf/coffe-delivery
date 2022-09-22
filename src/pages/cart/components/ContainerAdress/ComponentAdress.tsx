@@ -15,6 +15,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { api } from "../../../../services/api";
+import { useForm } from "react-hook-form";
+import * as zod from "zod";
 
 interface DadosProps {
   cep: string;
@@ -37,6 +39,7 @@ export function ComponentAdress() {
   });
 
   async function teste3() {
+
     try {
       const response = await api.get(`${cep}/json/`);
       setTimeout(
@@ -53,6 +56,12 @@ export function ComponentAdress() {
     } catch (error) {
       toast.error("Digite um CEP Válido");
     }
+  }
+  const { register, handleSubmit, watch } = useForm();
+
+
+  function onSubmit(){
+    console.log('teste')
   }
 
   return (
@@ -78,7 +87,7 @@ export function ComponentAdress() {
             <span>Informe o endereço onde deseja receber seu pedido</span>
           </div>
         </AdressDelivery>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Cep>
             <input
               type="text"
@@ -86,6 +95,7 @@ export function ComponentAdress() {
               value={cep}
               onBlur={teste3}
               onChange={(e) => setCep(e.target.value)}
+              
             />
           </Cep>
           <Street>
