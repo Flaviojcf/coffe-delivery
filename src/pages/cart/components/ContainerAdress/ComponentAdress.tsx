@@ -13,55 +13,54 @@ import {
 } from "./styles";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
-import { api } from "../../../../services/api";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../../../../hooks/useCart";
 
-interface DadosProps {
-  cep: string;
-  rua?: string;
-  número?: string;
-  complemento?: string;
-  bairro: string;
-  cidade: string;
-  uf: string;
+interface ErrorsProps {
+  errors: {
+    [key: string]: {
+      message: string;
+    };
+  };
 }
 
+const confirmOrderFormValidationSchema = zod.object({
+  cep: zod.string(),
+  rua: zod.string(),
+  numero: zod.string(),
+  complemento: zod.string(),
+  bairro: zod.string(),
+  cidade: zod.string(),
+  uf: zod.string(),
+});
+
+export type OrderData = zod.infer<typeof confirmOrderFormValidationSchema>;
+type ConfirmOrderFormData = OrderData;
+
 export function ComponentAdress() {
-  const [cep, setCep] = useState("");
-  const [dados, setDados] = useState<DadosProps>({
-    cep: "",
-    complemento: "",
-    bairro: "",
-    cidade: "",
-    uf: "",
+  const confirmOrder = useForm<ConfirmOrderFormData>({
+    resolver: zodResolver(confirmOrderFormValidationSchema),
   });
 
-  async function teste3() {
+  const { cleanCart, cartItems }: any = useCart();
+  const { handleSubmit, register, formState } = confirmOrder;
 
-    try {
-      const response = await api.get(`${cep}/json/`);
-      setTimeout(
-        () =>
-          setDados({
-            cep,
-            complemento: response.data.complemento,
-            bairro: response.data.bairro,
-            cidade: response.data.localidade,
-            uf: response.data.uf,
-          }),
-        200
-      );
-    } catch (error) {
-      toast.error("Digite um CEP Válido");
+  const { errors } = formState as unknown as ErrorsProps;
+
+  const navigate = useNavigate();
+
+  function onSubmit(data: ConfirmOrderFormData) {
+    if (Object.keys(cartItems).length === 0) navigate("/");
+    else {
+      navigate("/success", {
+        state: data,
+      });
+
+      cleanCart();
     }
-  }
-  const { register, handleSubmit, watch } = useForm();
-
-
-  function onSubmit(){
-    console.log('teste')
   }
 
   return (
@@ -87,41 +86,57 @@ export function ComponentAdress() {
             <span>Informe o endereço onde deseja receber seu pedido</span>
           </div>
         </AdressDelivery>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} id="formCartAdress">
           <Cep>
             <input
               type="text"
               placeholder="CEP"
-              value={cep}
-              onBlur={teste3}
-              onChange={(e) => setCep(e.target.value)}
-              
+              {...register("cep")}
+              required
             />
           </Cep>
           <Street>
-            <input type="text" placeholder="Rua" />
+            <input
+              type="text"
+              placeholder="Rua"
+              {...register("rua")}
+              required
+            />
           </Street>
           <ContentInformation>
             <Complement>
-              <input type="text" placeholder="Número" />
+              <input
+                type="text"
+                placeholder="Número"
+                {...register("numero")}
+                required
+              />
               <input
                 type="text"
                 placeholder="Complemento"
-                defaultValue={dados.complemento}
+                {...register("complemento")}
+                required
               />
             </Complement>
             <ComplementAdress>
               <input
                 type="text"
                 placeholder="Bairro"
-                defaultValue={dados.bairro}
+                {...register("bairro")}
+                required
               />
               <input
                 type="text"
                 placeholder="Cidade"
-                defaultValue={dados.cidade}
+                {...register("cidade")}
+                required
               />
-              <input type="text" placeholder="UF" defaultValue={dados.uf} />
+              <input
+                type="text"
+                placeholder="UF"
+                {...register("uf")}
+                required
+              />
             </ComplementAdress>
           </ContentInformation>
         </form>
@@ -139,16 +154,16 @@ export function ComponentAdress() {
 
         <TypesPayment>
           <div>
-            <img src="/cartaoCredito.png" alt="" />
-            <p>Cartão de crédito</p>
+            <img src="/cartaoCredito.png" />
+            Cartão de Crédito
           </div>
           <div>
-            <img src="/cartaoDebito.png" alt="" />
-            <p>cartão de débito</p>
+            <img src="/cartaoDebito.png" />
+            Cartão de Debito
           </div>
           <div>
-            <img src="/dinheiro.png" alt="" />
-            <p>dinheiro</p>
+            <img src="/dinheiro.png" />
+            dinheiro
           </div>
         </TypesPayment>
       </ContentPayment>

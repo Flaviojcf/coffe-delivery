@@ -85,15 +85,13 @@ export const OrderConfirm = styled.button`
   background: #dbac2c;
   border-radius: 6px;
 
-  a {
-    text-decoration: none;
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 160%;
-    text-transform: uppercase;
-    color: #ffffff;
-    font-stretch: 100;
-  }
+  text-decoration: none;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 160%;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-stretch: 100;
 `;

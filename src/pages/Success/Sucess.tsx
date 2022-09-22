@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Container,
   ContainerImage,
@@ -6,7 +8,21 @@ import {
   OrderConfirmed,
 } from "./styles";
 
+interface stateType {
+  state: any;
+}
 export function Success() {
+  const { state } = useLocation() as unknown as stateType;
+  const navigate = useNavigate();
+
+  console.log(state)
+
+  useEffect(() => {
+    if (!state) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <Container>
       <OrderConfirmed>
@@ -18,8 +34,8 @@ export function Success() {
           <div>
             <img src="/gpsBackgroundBlue.png" />
             <p>
-              Entrega em <strong>Rua João Daniel Martinelli, 102</strong>{" "}
-              Farrapos - Porto Alegre, RS
+              Entrega em <strong>{state.rua}, {state.numero}</strong>{" "}
+              {state.bairro} - {state.cidade}, {state.uf}
             </p>
           </div>
           <div>

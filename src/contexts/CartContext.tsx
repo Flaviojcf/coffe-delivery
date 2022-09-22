@@ -83,6 +83,10 @@ export function CartContextProvider({ children }: TypeCartContextProvider) {
     setCartItems(filterRemoveCoffe);
   }
 
+  function cleanCart(){
+    setCartItems([]);
+  }
+
   useEffect(() => {
     localStorage.setItem(
       "@cartItems-project:state-1.0.0",
@@ -100,6 +104,7 @@ export function CartContextProvider({ children }: TypeCartContextProvider) {
         sumTotalAmountValue,
         minusAmountInCart,
         removeCoffeInCart,
+        cleanCart
       }}
     >
       {children}

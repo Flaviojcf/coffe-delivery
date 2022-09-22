@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.8",
     "@types/styled-components": "^5.1.26",
     "@types/uuid": "^8.3.4",
     "axios": "^0.27.2",

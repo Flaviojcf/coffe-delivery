@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import { ComponentTypeCoffe } from "./components/ComponentTypeCoffe/ComponentTypeCoffe";
 import { ComponentAdress } from "./components/ContainerAdress/ComponentAdress";
@@ -62,8 +61,8 @@ export function Cart() {
               </p>
             </ItemsInformation>
           </TotalItems>
-          <OrderConfirm>
-            <Link to="/success">confirmar pedido</Link>
+          <OrderConfirm type="submit" form="formCartAdress">
+            confirmar pedido
           </OrderConfirm>
         </ContainerCoffeSelected>
       </ContainerDiv>

@@ -218,6 +218,8 @@ export const TypesPayment = styled.div`
   align-items: center;
   gap: 12px;
 
+  
+
   & div {
     display: flex;
     flex-direction: row;
@@ -226,6 +228,7 @@ export const TypesPayment = styled.div`
     gap: 12px;
     width: 180px;
     border-radius: 6px;
+    cursor: pointer;
     height: 51px;
     background: ${(props) => props.theme.colors["base-button"]};
     font-family: "Roboto";
@@ -235,5 +238,10 @@ export const TypesPayment = styled.div`
     line-height: 160%;
     text-transform: uppercase;
     color: #574f4d;
+    
+
+    & label {
+      cursor: pointer;
+    }
   }
 `;
