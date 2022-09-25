@@ -141,7 +141,12 @@ export function ComponentAdress() {
 
         <ContainerPayment>
           <TypesPayment>
-            <input type="radio" id="teste" {...register("paymentMethod")} value="Cartão de Crédito"/>
+            <input
+              type="radio"
+              id="teste"
+              {...register("paymentMethod")}
+              value="Cartão de Crédito"
+            />
             <label htmlFor="teste">
               <ContentContainer>
                 <img src="/cartaoCredito.png" />
@@ -150,7 +155,12 @@ export function ComponentAdress() {
             </label>
           </TypesPayment>
           <TypesPayment>
-            <input type="radio" id="teste2" {...register("paymentMethod")} value="Cartão de Débito" />
+            <input
+              type="radio"
+              id="teste2"
+              {...register("paymentMethod")}
+              value="Cartão de Débito"
+            />
             <label htmlFor="teste2">
               <ContentContainer>
                 <img src="/cartaoCredito.png" />
@@ -159,7 +169,12 @@ export function ComponentAdress() {
             </label>
           </TypesPayment>
           <TypesPayment>
-            <input type="radio" id="teste3" {...register("paymentMethod")} value="Dinheiro"/>
+            <input
+              type="radio"
+              id="teste3"
+              {...register("paymentMethod")}
+              value="Dinheiro"
+            />
             <label htmlFor="teste3">
               <ContentContainer>
                 <img src="/cartaoCredito.png" />
