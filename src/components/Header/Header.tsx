@@ -3,7 +3,7 @@ import { useCart } from "../../hooks/useCart";
 import { AdressContainer, HeaderContainer } from "./styles";
 
 export function Header() {
-  const {cartLength}:any = useCart()
+  const {cartLength} = useCart()
   return (
     <HeaderContainer>
       

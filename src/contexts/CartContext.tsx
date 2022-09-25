@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { produce } from "immer";
-import { allCoffesInformations } from "../db/db";
 
 type TypeCartContextProvider = {
   children: ReactNode;
@@ -14,7 +13,18 @@ type TypeCoffeInformations = {
   amount: number;
 };
 
-export const CartContext = createContext({});
+interface CartContextProviderProps {
+  onAddToCart: (coffe: TypeCoffeInformations) => void;
+  cartItems: TypeCoffeInformations[];
+  cartLength: number;
+  addAmountInCart: (id: string) => void;
+  sumTotalAmountValue: () => number | undefined;
+  minusAmountInCart: (id: string) => void;
+  removeCoffeInCart: (id: string) => void;
+  cleanCart: () => void;
+}
+
+export const CartContext = createContext({} as CartContextProviderProps);
 
 export function CartContextProvider({ children }: TypeCartContextProvider) {
   const [cartItems, setCartItems] = useState<TypeCoffeInformations[]>(() => {
@@ -79,11 +89,11 @@ export function CartContextProvider({ children }: TypeCartContextProvider) {
   }
 
   function removeCoffeInCart(id: string) {
-    const filterRemoveCoffe: any = cartItems.filter((cart) => cart.id !== id);
+    const filterRemoveCoffe = cartItems.filter((cart) => cart.id !== id);
     setCartItems(filterRemoveCoffe);
   }
 
-  function cleanCart(){
+  function cleanCart() {
     setCartItems([]);
   }
 
@@ -104,7 +114,7 @@ export function CartContextProvider({ children }: TypeCartContextProvider) {
         sumTotalAmountValue,
         minusAmountInCart,
         removeCoffeInCart,
-        cleanCart
+        cleanCart,
       }}
     >
       {children}

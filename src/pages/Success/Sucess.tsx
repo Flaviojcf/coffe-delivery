@@ -8,14 +8,23 @@ import {
   OrderConfirmed,
 } from "./styles";
 
+interface AdressType {
+  rua: string;
+  bairro: string;
+  numero: string;
+  cidade: string;
+  uf: string;
+  paymentMethod:string;
+}
+
 interface stateType {
-  state: any;
+  state: AdressType;
 }
 export function Success() {
   const { state } = useLocation() as unknown as stateType;
   const navigate = useNavigate();
 
-  console.log(state)
+  console.log(state);
 
   useEffect(() => {
     if (!state) {
@@ -34,7 +43,10 @@ export function Success() {
           <div>
             <img src="/gpsBackgroundBlue.png" />
             <p>
-              Entrega em <strong>{state.rua}, {state.numero}</strong>{" "}
+              Entrega em{" "}
+              <strong>
+                {state.rua}, {state.numero}
+              </strong>{" "}
               {state.bairro} - {state.cidade}, {state.uf}
             </p>
           </div>
@@ -47,7 +59,7 @@ export function Success() {
           <div>
             <img src="/dolarBackgroundOrange.png" />
             <p>
-              Pagamento na entrega <strong>Cartão de Crédito</strong>
+              Pagamento na entrega <strong>{state.paymentMethod}</strong>
             </p>
           </div>
         </ContainerText>

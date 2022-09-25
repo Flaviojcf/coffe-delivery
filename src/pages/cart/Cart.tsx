@@ -11,7 +11,7 @@ import {
 } from "./styles";
 
 export function Cart() {
-  const { sumTotalAmountValue }: any = useCart();
+  const { sumTotalAmountValue } = useCart();
   const totalAmountValue = sumTotalAmountValue();
   const delivery = 3.5;
 

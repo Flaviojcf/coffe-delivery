@@ -7,7 +7,6 @@ import {
   ExtraContentOne,
   Info,
 } from "./styles";
-import { ShoppingCart } from "phosphor-react";
 
 export function FirstContentHome() {
   return (

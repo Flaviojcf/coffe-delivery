@@ -10,8 +10,9 @@ import {
   ContentPayment,
   PaymentText,
   TypesPayment,
+  ContentContainer,
+  ContainerPayment,
 } from "./styles";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
@@ -19,12 +20,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../../hooks/useCart";
 
-interface ErrorsProps {
-  errors: {
-    [key: string]: {
-      message: string;
-    };
-  };
+enum PaymentMethods {
+  credit = "Cartão de Crédito",
+  debit = "Cartão de Débito",
+  money = "Dinheiro",
 }
 
 const confirmOrderFormValidationSchema = zod.object({
@@ -35,6 +34,7 @@ const confirmOrderFormValidationSchema = zod.object({
   bairro: zod.string(),
   cidade: zod.string(),
   uf: zod.string(),
+  paymentMethod: zod.nativeEnum(PaymentMethods),
 });
 
 export type OrderData = zod.infer<typeof confirmOrderFormValidationSchema>;
@@ -45,10 +45,8 @@ export function ComponentAdress() {
     resolver: zodResolver(confirmOrderFormValidationSchema),
   });
 
-  const { cleanCart, cartItems }: any = useCart();
+  const { cleanCart, cartItems } = useCart();
   const { handleSubmit, register, formState } = confirmOrder;
-
-  const { errors } = formState as unknown as ErrorsProps;
 
   const navigate = useNavigate();
 
@@ -65,17 +63,6 @@ export function ComponentAdress() {
 
   return (
     <ContainerAdress>
-      <ToastContainer
-        position="top-center"
-        autoClose={7000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable={false}
-        pauseOnHover
-      />
       <ContentAdress>
         <AdressDelivery>
           <div>
@@ -152,20 +139,35 @@ export function ComponentAdress() {
           </p>
         </PaymentText>
 
-        <TypesPayment>
-          <div>
-            <img src="/cartaoCredito.png" />
-            Cartão de Crédito
-          </div>
-          <div>
-            <img src="/cartaoDebito.png" />
-            Cartão de Debito
-          </div>
-          <div>
-            <img src="/dinheiro.png" />
-            dinheiro
-          </div>
-        </TypesPayment>
+        <ContainerPayment>
+          <TypesPayment>
+            <input type="radio" id="teste" {...register("paymentMethod")} value="Cartão de Crédito"/>
+            <label htmlFor="teste">
+              <ContentContainer>
+                <img src="/cartaoCredito.png" />
+                Cartão de Crédito
+              </ContentContainer>
+            </label>
+          </TypesPayment>
+          <TypesPayment>
+            <input type="radio" id="teste2" {...register("paymentMethod")} value="Cartão de Débito" />
+            <label htmlFor="teste2">
+              <ContentContainer>
+                <img src="/cartaoCredito.png" />
+                Cartão de Débito
+              </ContentContainer>
+            </label>
+          </TypesPayment>
+          <TypesPayment>
+            <input type="radio" id="teste3" {...register("paymentMethod")} value="Dinheiro"/>
+            <label htmlFor="teste3">
+              <ContentContainer>
+                <img src="/cartaoCredito.png" />
+                Dinheiro
+              </ContentContainer>
+            </label>
+          </TypesPayment>
+        </ContainerPayment>
       </ContentPayment>
     </ContainerAdress>
   );

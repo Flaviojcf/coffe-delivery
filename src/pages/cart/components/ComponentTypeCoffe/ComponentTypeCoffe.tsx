@@ -14,7 +14,7 @@ export function ComponentTypeCoffe() {
     minusAmountInCart,
     cartItems,
     removeCoffeInCart,
-  }: any = useCart();
+  } = useCart();
 
   function handleAddAmount(id: string) {
     addAmountInCart(id);
