@@ -1,4 +1,4 @@
-import { useCart } from "../../../../hooks/useCart";
+import { useCart } from "../../hooks/useCart";
 import {
   ContainerButton,
   ContainerPrice,
@@ -9,12 +9,8 @@ import {
 } from "./styles";
 
 export function ComponentTypeCoffe() {
-  const {
-    addAmountInCart,
-    minusAmountInCart,
-    cartItems,
-    removeCoffeInCart,
-  } = useCart();
+  const { addAmountInCart, minusAmountInCart, cartItems, removeCoffeInCart } =
+    useCart();
 
   function handleAddAmount(id: string) {
     addAmountInCart(id);

@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { DeafaultLayout } from "./defaultLayout/DefaultLayout";
 import { Cart } from "./pages/Cart/Cart";
-
 import { Home } from "./pages/Home/Home";
 import { Success } from "./pages/Success/Sucess";
 
