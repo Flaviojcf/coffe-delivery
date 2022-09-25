@@ -1,6 +1,6 @@
 import { useCart } from "../../hooks/useCart";
-import { ComponentTypeCoffe } from "../../components/ComponentTypeCoffe/ComponentTypeCoffe";
-import { ComponentAdress } from "../../components/ContainerAdress/ComponentAdress";
+import { ComponentTypeCoffe } from "./components/ComponentTypeCoffe/ComponentTypeCoffe";
+import { ComponentAdress } from "./components/ContainerAdress/ComponentAdress";
 import {
   Container,
   ContainerCoffeSelected,

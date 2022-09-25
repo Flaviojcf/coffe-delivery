@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../../hooks/useCart";
+import { useCart } from "../../../../hooks/useCart";
 
 enum PaymentMethods {
   credit = "Cartão de Crédito",

@@ -18,7 +18,7 @@ export function Header() {
           Porto Alegre, RS
         </div>
         <span>
-          <Link to="/cart">
+          <Link to="/cartItems">
             <span>{cartLength}</span>
             <img src="/shoppingCart.png" />
           </Link>
